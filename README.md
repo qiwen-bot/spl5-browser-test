@@ -1,9 +1,14 @@
 # spl5-browser-test
 
+[![GitHub](https://img.shields.io/badge/GitHub-qiwen--bot/spl5--browser--test-181717?logo=github)](https://github.com/qiwen-bot/spl5-browser-test)
+
 用内置浏览器在 **SPL5（生产线5）公共资源交易平台**上定位控件、录入测试数据、确认落库。
 
 An Agent Skill for locating SPL5 UI controls, entering test data through the built-in
 browser, and verifying that the data actually landed in the database.
+
+> **仓库地址**：<https://github.com/qiwen-bot/spl5-browser-test>
+> 配套 skill：[`spl5-bid-section-entry`](https://github.com/qiwen-bot/spl5-bid-section-entry)（建设工程标段录入）
 
 SPL5 页面是**代码生成**出来的：控件 id、字段 name、面板结构写死在生成的 JSP 里，
 字段↔列名写死在 `.et` 模型里，关联关系写死在 `generated/Abstract*.java` 里。
@@ -27,6 +32,14 @@ SPL5 页面是**代码生成**出来的：控件 id、字段 name、面板结构
 ---
 
 ## 安装
+
+### 方式一：直接 clone
+
+```bash
+git clone https://github.com/qiwen-bot/spl5-browser-test.git
+```
+
+### 方式二：手动放置
 
 把整个 `spl5-browser-test/` 放进你的 agent 的 skills 目录：
 
@@ -73,6 +86,8 @@ powershell -ExecutionPolicy Bypass -File scripts/dbq.ps1 `
 | [`references/cases.md`](references/cases.md) | 真实案例：完整录入闭环、"页面空但库里有数"、入口选择 |
 | [`scripts/dbq.ps1`](scripts/dbq.ps1) | 免 mysql client 的查库脚本 |
 
+在线浏览：<https://github.com/qiwen-bot/spl5-browser-test/tree/main>
+
 ---
 
 ## 几个关键结论（详情见 references）
@@ -85,6 +100,15 @@ powershell -ExecutionPolicy Bypass -File scripts/dbq.ps1 `
 | 弹窗「确定」点了没反应 | `query(kind="semantic", text="确定")` 拿 ref 再 `click` |
 | 页面 502 | **多半是测试环境在发版重启**（不是崩溃）—— 等 1~2 分钟重试，别下业务结论 |
 | 跳到 `/login` | session 过期，请用户重新登录，不要代填凭据 |
+
+---
+
+## 配套 skill
+
+| Skill | 用途 |
+|---|---|
+| [`spl5-browser-test`](https://github.com/qiwen-bot/spl5-browser-test) | 通用：SPL5 页面骨架、控件定位、浏览器工具手法、查库核对（本仓库） |
+| [`spl5-bid-section-entry`](https://github.com/qiwen-bot/spl5-bid-section-entry) | 专用：建设工程「招标项目标段」测试数据录入（依赖本 skill） |
 
 ---
 
